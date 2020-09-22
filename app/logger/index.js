@@ -29,7 +29,7 @@ fs.ensureDirSync(loggerPath);
 
 var timeStamp = () => moment().format('YYYY-MM-DD HH:mm:ss.SSS');
 
-var normalLogger = new winston.Logger({
+var normalLogger = winston.createLogger({
 	level: 'debug',
 	transports: [
 		new winston.transports.Console({level: 'info'}),
@@ -73,7 +73,7 @@ var normalLogger = new winston.Logger({
 	]
 });
 
-var sqlLogger = new winston.Logger({
+var sqlLogger = winston.createLogger({
 	level: 'info',
 	transports: [
 		new winston.transports.DailyRotateFile({
