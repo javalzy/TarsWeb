@@ -1,3 +1,27 @@
+## 20201012(2.4.13)
+- inactive 服务没有start当发布服务的时候
+- 下载url可以查看到url地址
+- 修复tree展示bug, 当开启set模式时
+- 扩容界面, 应用服务界面支持filter
+
+## 20200929(2.4.12)
+- 修复监控页面小时显示的bug
+- 修复服务名称显示的bug 
+- 修复registry_timestamp字段更新的bug, 这个比较严重, 会影响tarsregsitry加载db
+- 修复添加servant时, 没有返回数据的bug
+- 修复logview显示的日志的bug, 中文能正常显示了
+
+## 20200918(2.4.11)
+- 修复连接数据库, 时区不是整点时区的bug
+- 修复服务监控(set模式)树显示的bug
+- 修复dcache覆盖安装时下拉列表只读时还能点击的问题
+- 修复dcache mk server(不带db)的发布问题
+- 修改dcache树数据显示BUG
+- 创建dcache应用做个保护，不能取名web
+- config 历史默认显示10条数据
+- config 配置按照时间倒序排序
+- dcache迁移时可以修改内存大小
+
 ## 20200902(2.4.10)
 - fix dcache 部署不带db的cache的bug
 - 修复ret[0]为0时，平均耗时/异常率/超时率不出图的bug

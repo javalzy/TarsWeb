@@ -142,13 +142,15 @@ ExpandServerController.expandServer = async (ctx) => {
 			ctx.makeNotAuthResObj();
 		} else {
 			let rst = await ExpandService.expand(params);
+			// console.log(rst.server_conf);
 			ctx.makeResObj(200, '', {
-				server_conf: util.viewFilter(rst.server_conf, serverConfStruct),
+
+				// server_conf: util.viewFilter(rst.server_conf, serverConfStruct),
 				tars_node_rst: rst.tars_node_rst
 			});
 		}
 	} catch (e) {
-		console.log(e);
+		// console.log(e);
 		logger.error('[expandServer]', e, ctx);
 		ctx.makeErrResObj(500, e);
 	}

@@ -54,6 +54,9 @@ ExpandService.preview = async (params) => {
 	let sourceServer = await ServerDao.getServerConfByName(application, serverName, params.node_name);
 	let sourceAdapter = await AdapterDao.getAdapterConf(application, serverName, params.node_name);
 	let result = [];
+
+	// console.log(sourceServer, sourceAdapter);
+
 	params.expand_nodes.forEach((expandNode) => {
 		sourceAdapter.forEach((adapter) => {
 			// adapter = adapter.dataValues;
@@ -74,6 +77,9 @@ ExpandService.preview = async (params) => {
 			preServer.obj_name = servant.substring(servant.lastIndexOf('.') + 1);
 			preServer.bind_ip = expandNode;
 			preServer.status = expandNode == sourceServer.node_name ? "#api.expand.node.status.existent#" : "#api.expand.node.status.nonexistent#";
+
+			// console.log(preServer);
+			
 			result.push(preServer);
 		});
 	});
@@ -119,8 +125,9 @@ ExpandService.expand = async (params) => {
 					});
 					server = util.leftAssign(ServerService.serverConfFields(), server);
 					let rst = await ServerDao.insertServerConf(server, transaction);
-					// console.log('rst', rst);
-					addServers.push(rst.dataValues);
+
+					addServers.push(serverConf);
+
 					addServersMap[`${server.application}-${server.server_name}-${server.node_name}`] = true;
 					addNodeNameMap[server.node_name] = true;
 					if (params.copy_node_config) {
@@ -203,7 +210,7 @@ ExpandService.expand = async (params) => {
 					posttime: new Date('1970-01-01 00:00:00')
 				};
 				let portType = sourceAdapter.endpoint.substring(0, sourceAdapter.endpoint.indexOf(' '));
-				portType = _.indexOf(['tcp', 'udp'], portType) > -1 ? portType : 'tcp';
+				portType = _.indexOf(['tcp', 'udp', 'ssl'], portType) > -1 ? portType : 'tcp';
 				adapter.endpoint = portType + ' -h ' + preServer.bind_ip + ' -t ' + sourceAdapter.queuetimeout + ' -p ' + preServer.port + ' -e ' + (preServer.auth ? preServer.auth : 0);
 				// console.log('adapter', adapter);
 				await AdapterDao.insertAdapterConf(adapter, transaction);
@@ -252,12 +259,14 @@ ExpandService.getServerName = async (application, uid) => {
 		serverList = ExpandService.formatToArray(await ServerDao.getServerName(application), 'server_name');
 	} else {
 		let authList = await AuthService.getAuthListByUid(uid);
-		let serverList = [];
+		
 		for (var i = 0; i < authList.length; i++) {
 			let auth = authList[i];
 			let authApplication = auth.application;
 			let authServerName = auth.serverName;
+
 			if (authServerName) {
+
 				if (authApplication == application) {
 					serverList.push(authServerName);
 				}
@@ -271,6 +280,7 @@ ExpandService.getServerName = async (application, uid) => {
 				})
 			}
 		}
+
 		serverList = _.uniq(serverList);
 	}
 

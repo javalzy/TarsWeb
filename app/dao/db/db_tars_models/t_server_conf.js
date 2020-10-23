@@ -45,9 +45,9 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: ''
 		},
 		registry_timestamp: {
-			type: DataTypes.DATE,
+			type: 'DATETIME(3) DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)',
 			allowNull: false,
-			defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+			defaultValue: DataTypes.NOW
 		},
 		base_path: {
 			type: DataTypes.STRING(128),

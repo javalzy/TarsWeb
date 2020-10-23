@@ -1,3 +1,27 @@
+## 20201012(2.4.13)
+- fix inactive server not start when patch server
+- download url use html a tag
+- fix tree bug, when open set
+- expand, application/server support filter
+
+## 20200929(2.4.12)
+- fix monitor server page, hour show bug
+- fix server show name
+- fix registry_timestamp node update bug
+- fix add servant node return value bug
+- fix logview show bug
+
+## 20200918(2.4.11)
+- Fix the bug that the time zone is not the time zone when connecting to the database
+- Fix the bug displayed in the service monitoring (set mode) tree 
+- Fix the problem that the drop-down list can still be clicked when the DCache overlay installation is read-only
+- Fix DCache tree data display bug
+- Fix dcache mk server publish bug
+- Create a DCache application for protection. It cannot be named web
+- Config history displays 10 pieces of data by default
+- The config configuration is sorted in reverse order
+- The memory size can be modified during dCache migration
+
 ## 20200902(2.4.10)
 - fix dcache cache(no dbaccess) bug
 - fix ret[0]== 0，chart not show bug
